@@ -1,8 +1,8 @@
 // Edit these to customize your dashboard. No need to touch any component files.
 
 export const uptimeServices = [
-  { id: 1, name: 'Digitalway Helpdesk', url: '#', status: 'up' },
-  { id: 2, name: 'Digitalway NOC', url: '#', status: 'up' },
+  { id: 1, name: 'Digitalway Helpdesk', url: 'https://digitalway-helpdesk.web.app/', status: 'up' },
+  { id: 2, name: 'Digitalway NOC', url: 'https://dws-cmts-monitoring-e2cc5.web.app/', status: 'up' },
   { id: 3, name: 'solvedit.dev', url: 'https://solvedit.dev', status: 'up' },
 ];
 
