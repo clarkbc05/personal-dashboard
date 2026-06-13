@@ -1,9 +1,9 @@
 // Edit these to customize your dashboard. No need to touch any component files.
 
 export const uptimeServices = [
-  { id: 1, name: 'Helpdesk', url: '#', status: 'up' },
-  { id: 2, name: 'Crew Dashboard', url: '#', status: 'up' },
-  { id: 3, name: 'solvedit.dev', url: '#', status: 'up' },
+  { id: 1, name: 'Digitalway Helpdesk', url: '#', status: 'up' },
+  { id: 2, name: 'Digitalway NOC', url: '#', status: 'up' },
+  { id: 3, name: 'solvedit.dev', url: 'https://solvedit.dev', status: 'up' },
 ];
 
 // Projects are stored in localStorage so UI edits persist.
@@ -37,9 +37,9 @@ export const milestones = [
 ];
 
 export const quickLinks = [
-  { id: 1, name: 'Proxmox', url: 'https://proxmox.local:8006', icon: '🖥️' },
-  { id: 2, name: 'Gitea', url: 'https://git.local', icon: '🐙' },
-  { id: 3, name: 'Uptime Kuma', url: 'https://uptime.local', icon: '📊' },
+  { id: 1, name: 'Proxmox', url: 'https://192.168.1.100:8006', icon: '🖥️' },
+  { id: 2, name: 'Pi-hole', url: 'http://192.168.1.101/admin', icon: '🛡️' },
+  { id: 3, name: 'Uptime Kuma', url: 'http://192.168.1.103:3001', icon: '📊' },
   { id: 4, name: 'GitHub', url: 'https://github.com', icon: '🐱' },
   { id: 5, name: 'Firebase', url: 'https://console.firebase.google.com', icon: '🔥' },
   { id: 6, name: 'Cloudflare', url: 'https://dash.cloudflare.com', icon: '☁️' },
