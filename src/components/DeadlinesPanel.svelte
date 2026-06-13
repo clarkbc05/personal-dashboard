@@ -11,8 +11,34 @@
   }
 
   function toggle(id) {
-    milestones = milestones.map(m => m.id === id ? { ...m, done: !m.done } : m);
+    const updated = milestones.map(m => m.id === id ? { ...m, done: !m.done } : m);
+    milestones = updated;
     save();
+    if (updated.find(m => m.id === id)?.done) {
+      setTimeout(() => {
+        milestones = milestones.filter(m => m.id !== id);
+        save();
+      }, 600);
+    }
+  }
+
+  function remove(id) {
+    milestones = milestones.filter(m => m.id !== id);
+    save();
+  }
+
+  let newText = '';
+
+  function add() {
+    const text = newText.trim();
+    if (!text) return;
+    milestones = [...milestones, { id: Date.now(), text, done: false }];
+    newText = '';
+    save();
+  }
+
+  function handleKeydown(e) {
+    if (e.key === 'Enter') add();
   }
 
   $: doneCount = milestones.filter(m => m.done).length;
@@ -26,14 +52,24 @@
 
   <ul class="list">
     {#each milestones as item (item.id)}
-      <li>
+      <li class="item-row">
         <button class="row" class:done={item.done} on:click={() => toggle(item.id)}>
           <span class="checkbox" aria-hidden="true">{item.done ? '✓' : ''}</span>
           <span class="text">{item.text}</span>
         </button>
+        <button class="remove-btn" on:click={() => remove(item.id)} title="Remove">×</button>
       </li>
     {/each}
   </ul>
+
+  <div class="add-row">
+    <input
+      type="text"
+      placeholder="Add a milestone..."
+      bind:value={newText}
+      on:keydown={handleKeydown}
+    />
+  </div>
 </div>
 
 <style>
@@ -55,6 +91,13 @@
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .item-row {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   .row {
@@ -66,7 +109,7 @@
     cursor: pointer;
     user-select: none;
     transition: background 0.1s;
-    width: 100%;
+    flex: 1;
     background: none;
     border: none;
     color: var(--text);
@@ -104,5 +147,46 @@
   .row.done .text {
     color: var(--text-dim);
     text-decoration: line-through;
+  }
+
+  .remove-btn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0.25rem 0.4rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .item-row:hover .remove-btn {
+    opacity: 1;
+  }
+
+  .remove-btn:hover {
+    color: var(--text);
+  }
+
+  .add-row input {
+    width: 100%;
+    background: var(--surface-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    padding: 0.45rem 0.7rem;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .add-row input:focus {
+    border-color: var(--accent-mid);
+  }
+
+  .add-row input::placeholder {
+    color: var(--text-dim);
   }
 </style>
